@@ -1,16 +1,11 @@
 from tkinter import filedialog
 from tkinter import *
 from PIL import Image
+
 import math
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import rc
-import array
 import os
-from app import Application
 import numpy as np
-import argparse
-import glob
 import cv2
 
 # массив для списка фотографий
@@ -89,7 +84,7 @@ def program_canny(self_window=None):
                     # if key == 0:
                     pic.insert(key, os.getcwd() + "/Images/Canny/" + str(key) + ".jpg")
 
-            Video_Scan(pic)
+            tangent_calculation(pic)
 
     def is_float(value):
         try:
@@ -194,14 +189,6 @@ def program_canny(self_window=None):
         else:
             return True
 
-    # def vvod_foto_scan():
-    #   amount_of_photos_scan = field_amount_scanned_photos.get()
-    #
-    #   if not (is_float(amount_of_photos_scan) or is_int(amount_of_photos_scan)):
-    #     print("Некорректное значение кол-ва фотографий с видеоскана\n")
-    #   else:
-    #     print("Кол-ва фотографий с видеоскана = " + amount_of_photos_scan)
-
     # Окно для выбора файлов
     def load_images():
         global scan_photos
@@ -212,16 +199,8 @@ def program_canny(self_window=None):
             print("Select images:")
             print(scan_photos)
 
-    # def Vvod_Foto_Camera():
-    #   amount_of_photos_camera = camera_photo_entry_field.get()
-    #
-    #   if not (is_float(amount_of_photos_camera) or is_int(amount_of_photos_camera)):
-    #     print("Некорректное значение кол-ва фотографий с камеры")
-    #   else:
-    #     print("Кол-ва фотографий с камеры = " + amount_of_photos_camera)
-
-    # Событие обработки отсканированых картинок
-    def Video_Scan(photos=None):
+    # Событие обработки изображений
+    def tangent_calculation(photos=None):
         global scan_photos
 
         if photos is None:
@@ -268,50 +247,8 @@ def program_canny(self_window=None):
                     print("")
 
                 plt.plot(tg)
-                plt.title("Тангенс краевого угла видеоскан")
+                plt.title("Тангенс краевого угла")
                 plt.show()
-
-    # def Camera():
-    #   print("Camera")
-    #   amount_of_photos_camera = int(camera_photo_entry_field.get())
-    #   PictList = []
-    #   b = []
-    #   R = np.zeros(amount_of_photos_camera)
-    #   b = np.zeros((amount_of_photos_camera, 4))
-    #   z = float(field_parameter_z.get())
-    #   n = float(field_indicator_n.get())
-    #   tg = np.zeros(amount_of_photos_camera)
-    #
-    #   for i in range(amount_of_photos_camera):
-    #     PictList.insert(i, Image.open("J:\Photos for work\Five_mkl\Cam_rab\\" + str(i + 1) + ".jpg"))
-    #
-    #   for i in range(amount_of_photos_camera):
-    #     A = PictList[i]
-    #     A = A.convert("L")
-    #     z = P0r0g(A, float(field_threshold_filter.get()))
-    #     print("Номер итерации " + str(i + 1))
-    #
-    #     for j in range(4):
-    #       b[i, j] = z[j]
-    #
-    #     R[i] = ((b[i, 2] - b[i, 0]) + (b[i, 3] - b[i, 1])) / 4
-    #     R[i] = (R[i] / 22) + 3.53
-    #
-    #     print("Радиус № " + str(i + 1) + " в мм")
-    #     print(R[i])
-    #     print("")
-    #
-    #   for i in range(amount_of_photos_camera):
-    #     print("Тангенс краевого угла на фотографии № " + str(i + 1))
-    #     tg[i] = R[i] / (z * n)
-    #     print(" " + str(tg[i]))
-    #     tg[i] = math.degrees(tg[i])
-    #     print("Значение угла в градусах " + str(tg[i]))
-    #     print("")
-    #
-    #   plt.plot(tg)
-    #   plt.title("Тангенс краевого угла фотоаппарат")
-    #   plt.show()
 
     """
   Глобальные переменные
@@ -319,8 +256,6 @@ def program_canny(self_window=None):
 
     # Глобальные переменные
     scan_photos = []
-    # scan_photos = ['/Users/konstantinegorov/develop/Nebula/Images/Scan/1.bmp',
-    #               '/Users/konstantinegorov/develop/Nebula/Images/Scan/2.bmp']
 
     """
   Application
@@ -395,21 +330,10 @@ def program_canny(self_window=None):
     label_error_threshold_filter.config(font=('Verdana', 10), fg='red')
     label_error_threshold_filter.place(x=740, y=278)
 
-    # Этикетка для поля "кол-во фотографий с видеоскана"
-    # label_number_scanned_photos = Label(program2, text='Введите кол-во фотографий с видеоскана', fg='yellow',
-    #                                     bg='#9932CC')
-    # label_number_scanned_photos.config(font=('Verdana', 15))
-    # label_number_scanned_photos.place(x=5, y=50)
-
     # Этикетка для вывода неверного значения у поля "кол-ва фотографий с видеоскана"
     label_error_amount_scanned_photos = Label(program2, fg='#FFE4B5', bg='#FFE4B5')
     label_error_amount_scanned_photos.config(font=('Verdana', 10), fg='red')
     label_error_amount_scanned_photos.place(x=140, y=85)
-
-    # # Этикетка для поля "кол-во фотографий с камеры"
-    # label_camera_photo = Label(program2, text='Введите кол-во фотографий с камеры', fg='yellow', bg='#9932CC')
-    # label_camera_photo.config(font=('Verdana', 15))
-    # label_camera_photo.place(x=5, y=130)
 
     # Этикетка для вывода неверного значения у поля "кол-во фотографий с камеры"
     label_error_amount_camera_photo = Label(program2, fg='#FFE4B5', bg='#FFE4B5')
@@ -453,14 +377,6 @@ def program_canny(self_window=None):
     field_threshold_filter = Entry(program2, width=20, bg='#DDA0DD')
     field_threshold_filter.place(x=600, y=280)
 
-    # # Поле для ввода кол-ва фотографий с видеоскана
-    # field_amount_scanned_photos = Entry(program2, width=20, bg='#DDA0DD')
-    # field_amount_scanned_photos.place(x=5, y=87)
-
-    # # Поле для ввода кол-ва фотографий с камеры
-    # camera_photo_entry_field = Entry(program2, width=20, bg='#DDA0DD')
-    # camera_photo_entry_field.place(x=5, y=167)
-
     # Поле для ввода кол-во пикселей в одном мм
     field_amount_of_pixels = Entry(program2, width=20, bg='#DDA0DD')
     field_amount_of_pixels.place(x=600, y=60)
@@ -473,35 +389,10 @@ def program_canny(self_window=None):
   BUTTONS
   """
 
-    # Ввод кол-ва фото видеоскана
-    # b3 = Button(program2, text='Ввод кол-ва фото видеоскана', command=vvod_foto_scan)
-    # b3.config(width=23, height=2, bg='#9ACD32', fg='black')
-    # b3.place(x=200, y=250)
-
-    # # Старт обработки с камеры
-    # start_camera = Button(program2, text='Камера', command=Camera)
-    # start_camera.config(width=23, height=2, bg='#9ACD32', fg='black')
-    # start_camera.place(x=200, y=400)
-
-    # # Видеоскан
-    # start_Video_Scan = Button(program2, text='Видеоскан', command=Video_Scan)
-    # start_Video_Scan.config(width=23, height=2, bg='#9ACD32', fg='black')
-    # start_Video_Scan.place(x=200, y=300)
-
-    # # Проверка фото камеры
-    # camera_photo_check = Button(program2, text='Ввод кол-ва фото камеры', command=Vvod_Foto_Camera)
-    # camera_photo_check.config(width=23, height=2, bg='#9ACD32', fg='black')
-    # camera_photo_check.place(x=200, y=350)
-
     # Проверка значений n, z, коэф. интенсивности
     start_data_input = Button(program2, text='Ввод и проверка значений', command=validation_required_values)
     start_data_input.config(width=23, height=2, bg='#9ACD32', fg='black')
     start_data_input.place(x=600, y=400)
-
-    # # Загрузка фото
-    # button_photos_upload = Button(program2, text='Загрузить фото', command=load_images)
-    # button_photos_upload.config(width=23, height=2, bg='#9ACD32', fg='black')
-    # button_photos_upload.place(x=400, y=250)
 
     # # Загрузка фото
     button_photos_upload = Button(program2, text='Загрузить фото', command=load_images)
