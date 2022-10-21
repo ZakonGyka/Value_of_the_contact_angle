@@ -80,7 +80,7 @@ def program_canny(self_window=None):
 
                     # show the images
                     # cv2.imshow("Original" + str(key), image)
-                    # cv2.imshow("Edges" + str(key), np.hstack([wide, tight, auto]))
+                    # cv2.imshow("Edges" +  str(key), np.hstack([wide, tight, auto]))
 
                     cv2.imwrite("Images/Canny/" + str(key) + ".jpg", np.hstack([auto]))
                     # cv2.waitKey(0)
