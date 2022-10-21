@@ -83,12 +83,12 @@ def program_square(self_window=None):
         # cv2.imshow("Original" + str(key), image)
         # cv2.imshow("Edges" + str(key), np.hstack([wide, tight, auto]))
 
-        cv2.imwrite("Images/Canny/" + str(key) + ".jpg", np.hstack([auto]))
+        cv2.imwrite("Images/Square/" + str(key) + ".jpg", np.hstack([auto]))
         # cv2.waitKey(0)
         cv2.destroyAllWindows()
 
         # if key == 0:
-        pic.insert(key, os.getcwd() + "/Images/Canny/" + str(key) + ".jpg")
+        pic.insert(key, os.getcwd() + "/Images/Square/" + str(key) + ".jpg")
       Video_Scan(pic)
 
   def is_float(value):
